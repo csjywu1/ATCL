@@ -1,30 +1,32 @@
-# ACTP: GeoLife Reproducibility Package
+# ACTP: Adaptive Contrastive Learning for Trajectory Prediction
 
-Clean reference implementation of Adaptive Contrastive Learning for Trajectory Prediction (ACTP) on GeoLife. The repository separates data processing, model definition, training, and inference into independent modules and uses a single JSON configuration.
+Official reproducibility package for **ACTP** on the GeoLife trajectory-prediction benchmark. ACTP combines multi-scale spatial supervision with hyperbolic cross-scale contrastive learning to model local, neighborhood, and regional movement patterns. The repository provides separate modules for data preparation, model definition, training, evaluation, and single-trajectory inference.
 
-## Project structure
+Repository: [https://github.com/csjywu1/ATCL](https://github.com/csjywu1/ATCL)
+
+## Repository layout
 
 ```text
-ACTP_GeoLife_reproducible/
+.
 ├── configs/
-│   └── geolife.json
+│   └── geolife.json               # Reproducible GeoLife configuration
 ├── data/
-│   ├── dataset.py
-│   ├── prepare.py
-│   ├── raw/
-│   └── processed/
+│   ├── dataset.py                 # Dataset, split, and forecast samples
+│   ├── prepare.py                 # Raw GeoLife preprocessing
+│   ├── raw/                       # User-provided raw archive
+│   └── processed/                 # Generated trajectory file
 ├── model/
-│   ├── actp.py
-│   ├── geometry.py
-│   └── losses.py
+│   ├── actp.py                    # ACTP network
+│   ├── geometry.py                # Poincare-ball operations
+│   └── losses.py                  # Prediction and auxiliary objectives
 ├── train/
-│   ├── engine.py
-│   └── train.py
+│   ├── engine.py                  # Training and evaluation loops
+│   └── train.py                   # Training entry point
 ├── inference/
-│   ├── evaluate.py
-│   └── predict.py
-├── checkpoints/
-├── results/
+│   ├── evaluate.py                # Fixed-split evaluation
+│   └── predict.py                 # Single-trajectory prediction
+├── checkpoints/                   # Released checkpoint (Git LFS)
+├── results/                       # Reproducibility summary
 ├── CITATION.cff
 ├── DATA_LICENSE.md
 ├── LICENSE
@@ -34,40 +36,42 @@ ACTP_GeoLife_reproducible/
 
 ## Installation
 
-Python 3.10 or newer is recommended.
+Python 3.10 or newer is recommended. CUDA is used automatically when available; CPU execution is also supported.
 
 ```bash
+git clone https://github.com/csjywu1/ATCL.git
+cd ATCL
+
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+The released checkpoint is stored with Git LFS. Install Git LFS before cloning, or run `git lfs pull` inside an existing clone if the checkpoint is represented by a pointer file.
+
 ## Data preparation
 
-Place the official GeoLife archive at `data/raw/Geolife_Trajectories_1.3.zip`, then run:
+Download the official **GeoLife GPS Trajectories 1.3** archive and place it at:
+
+```text
+data/raw/Geolife_Trajectories_1.3.zip
+```
+
+Then preprocess the trajectories:
 
 ```bash
 python -m data.prepare \
   --input data/raw/Geolife_Trajectories_1.3.zip \
   --output data/processed/geolife_20k.pkl \
-  --limit 20000 --min-points 36
+  --limit 20000 \
+  --min-points 36
 ```
 
-The preprocessing step extracts valid `.plt` files, removes discontinuities larger than 2 km, and retains trajectories long enough for a historical prefix and five future locations.
+The preprocessing script parses valid `.plt` files, removes trajectories containing spatial discontinuities larger than 2 km, and retains trajectories long enough to form a historical prefix and five recorded future locations. GeoLife is not redistributed by this repository; consult [DATA_LICENSE.md](DATA_LICENSE.md) before using or sharing the dataset.
 
-## Training
+## Evaluate the released model
 
-All experiment settings are stored in `configs/geolife.json`.
-
-```bash
-python -m train.train --config configs/geolife.json
-```
-
-The best validation checkpoint and its JSON report are written to `results/runs/`. Change `seed` while keeping `split_seed` fixed to evaluate initialization stability on the same train/validation/test split.
-
-## Evaluation
-
-Evaluate the released checkpoint on the fixed GeoLife split:
+After preparing the data, evaluate the released checkpoint on the fixed trajectory-level test split:
 
 ```bash
 python -m inference.evaluate \
@@ -75,13 +79,37 @@ python -m inference.evaluate \
   --checkpoint checkpoints/actp_geolife_seed3.pt
 ```
 
-The released fixed-split runs report **27.17 ± 0.18 m MAE** and **105.13 ± 0.58 m RMSE** over three initialization seeds. The machine-readable summary is in `results/fixed_split_summary.json`.
+The released fixed-split experiments use three initialization seeds while keeping the data split fixed.
 
-Verify the released data and checkpoint with `shasum -a 256 -c SHA256SUMS`.
+| Dataset | MAE (m) | RMSE (m) |
+|---|---:|---:|
+| GeoLife | **27.17 +/- 0.18** | **105.13 +/- 0.58** |
 
-## Inference on one trajectory
+The machine-readable result summary is available in [`results/fixed_split_summary.json`](results/fixed_split_summary.json).
 
-Create a JSON file containing a list of observed `[latitude, longitude]` points, then run:
+## Train ACTP
+
+All model and optimization settings are defined in [`configs/geolife.json`](configs/geolife.json):
+
+```bash
+python -m train.train --config configs/geolife.json
+```
+
+The training script saves the best validation checkpoint and a JSON report under `results/runs/`. To measure initialization stability, change `seed` while keeping `split_seed` fixed. The released configuration uses a 2048-dimensional hidden state, full-history context projection, SmoothL1 prediction loss, and a five-location prediction horizon.
+
+## Predict one trajectory
+
+Create a JSON file containing the observed GPS points as an array of `[latitude, longitude]` pairs:
+
+```json
+[
+  [39.984702, 116.318417],
+  [39.984683, 116.318450],
+  [39.984686, 116.318474]
+]
+```
+
+Run inference with:
 
 ```bash
 python -m inference.predict \
@@ -90,16 +118,21 @@ python -m inference.predict \
   --checkpoint checkpoints/actp_geolife_seed3.pt
 ```
 
-The command returns five predicted metric offsets relative to the last observed point.
+The command returns five future metric offsets relative to the final observed point.
 
-## Reproducibility notes
+## Reproducibility details
 
-- Prediction horizon: five recorded GPS locations.
-- Split: trajectory-level 80/10/10 split with `split_seed=3`.
-- Model: three scale encoders at 50 m, 150 m, and 500 m; Poincaré cross-scale contrast; radial scale order; adaptive scale fusion.
-- Released configuration: hidden size 2048, batch size 32, SmoothL1 loss with beta 50, and full-history context projection.
-- Dataset redistribution is governed by the original GeoLife terms; see `DATA_LICENSE.md` before publishing the archive.
+- Prediction horizon: five recorded future GPS locations.
+- Data split: trajectory-level 80/10/10 split with `split_seed=3`.
+- Spatial scales: local, neighborhood, and regional states at 50 m, 150 m, and 500 m.
+- Representation objective: Poincare cross-scale contrast with radial scale ordering.
+- Released configuration: hidden size 2048, batch size 32, SmoothL1 beta 50, and full-history context projection.
+- Integrity check: run `shasum -a 256 -c SHA256SUMS` after preparing the referenced files.
 
-## Legacy backup
+## Citation
 
-The earlier monolithic scripts, exploratory logs, and redundant checkpoints were moved outside this repository to `../ACTP_GeoLife_reproducible_legacy_20260902/`. They are retained only for audit and are not part of the public interface.
+If this repository contributes to your research, please cite the ACTP paper. Citation metadata is provided in [`CITATION.cff`](CITATION.cff) and is also exposed through GitHub's **Cite this repository** function.
+
+## License
+
+The source code is released under the [MIT License](LICENSE). The GeoLife dataset remains subject to its original terms of use; see [DATA_LICENSE.md](DATA_LICENSE.md).
