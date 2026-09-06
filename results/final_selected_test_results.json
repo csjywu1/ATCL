@@ -1,0 +1,169 @@
+{
+  "source": "ACTP_paper_runner_v10.py",
+  "source_sha256": "ae6c3940ebd6dd96900d59f4d5fab7a031150485c969b31bc342514bdcdfd3b2",
+  "policy": "frozen v10 WorldTrace/GeoLife checkpoints and frozen v11 Chengdu-300m checkpoints; no retraining during test evaluation",
+  "results": [
+    {
+      "dataset": "worldtrace",
+      "seed": 100,
+      "split_seed": 20260906,
+      "checkpoint": "runs/final_validation_v1/world_s100.json.pt",
+      "checkpoint_sha256": "3ab505880f2dc40bab3e550d6c7e633515b3a7f6f0c23e2bdddee684263d4054",
+      "selected_validation": {
+        "MAE_m": 12.4984548828125,
+        "RMSE_m": 22.89493257251482,
+        "coordinates": 20000
+      },
+      "best_epoch": 42,
+      "test": {
+        "MAE_m": 11.98648759765625,
+        "RMSE_m": 22.176752467392514,
+        "coordinates": 20000
+      }
+    },
+    {
+      "dataset": "worldtrace",
+      "seed": 101,
+      "split_seed": 20260906,
+      "checkpoint": "runs/final_validation_v1/world_s101.json.pt",
+      "checkpoint_sha256": "80e0301d73acc79b648d00a73ec9cbe7776b9813554e2c87c7c08e8265ab336b",
+      "selected_validation": {
+        "MAE_m": 12.8443013671875,
+        "RMSE_m": 22.954449459745273,
+        "coordinates": 20000
+      },
+      "best_epoch": 39,
+      "test": {
+        "MAE_m": 12.41378603515625,
+        "RMSE_m": 22.466247878762488,
+        "coordinates": 20000
+      }
+    },
+    {
+      "dataset": "worldtrace",
+      "seed": 102,
+      "split_seed": 20260906,
+      "checkpoint": "runs/final_validation_v1/world_s102.json.pt",
+      "checkpoint_sha256": "e2978e3c24e1f8fb5623f5b9dda333f26fb082fb622c64d2b80f12ff337a1146",
+      "selected_validation": {
+        "MAE_m": 12.68073974609375,
+        "RMSE_m": 23.0597094517689,
+        "coordinates": 20000
+      },
+      "best_epoch": 38,
+      "test": {
+        "MAE_m": 12.21103173828125,
+        "RMSE_m": 22.486844209448332,
+        "coordinates": 20000
+      }
+    },
+    {
+      "dataset": "geolife",
+      "seed": 100,
+      "split_seed": 20260906,
+      "checkpoint": "runs/final_validation_v1/geolife_s100.json.pt",
+      "checkpoint_sha256": "aa01c8e40f23b639c14f39dfaed71daf6a0e557cde6431a2d284661744ae1a71",
+      "selected_validation": {
+        "MAE_m": 19.787920703125,
+        "RMSE_m": 50.47607855459851,
+        "coordinates": 20000
+      },
+      "best_epoch": 20,
+      "test": {
+        "MAE_m": 18.855545751953127,
+        "RMSE_m": 46.3761193934982,
+        "coordinates": 20000
+      }
+    },
+    {
+      "dataset": "geolife",
+      "seed": 101,
+      "split_seed": 20260906,
+      "checkpoint": "runs/final_validation_v1/geolife_s101.json.pt",
+      "checkpoint_sha256": "b5e7e220df5f46bc3db7f2bf913f426aac79d221afc596f9dd73ca47f13bf087",
+      "selected_validation": {
+        "MAE_m": 19.5595546875,
+        "RMSE_m": 50.40643299718797,
+        "coordinates": 20000
+      },
+      "best_epoch": 34,
+      "test": {
+        "MAE_m": 18.72729951171875,
+        "RMSE_m": 45.859840819610355,
+        "coordinates": 20000
+      }
+    },
+    {
+      "dataset": "geolife",
+      "seed": 102,
+      "split_seed": 20260906,
+      "checkpoint": "runs/final_validation_v1/geolife_s102.json.pt",
+      "checkpoint_sha256": "dbcf4786a39b0125ca7bf616978a9c333cef5acb59a390ceb46eceba12d4e148",
+      "selected_validation": {
+        "MAE_m": 19.17425869140625,
+        "RMSE_m": 49.517344183629234,
+        "coordinates": 20000
+      },
+      "best_epoch": 36,
+      "test": {
+        "MAE_m": 18.144356689453126,
+        "RMSE_m": 44.93884935387198,
+        "coordinates": 20000
+      }
+    },
+    {
+      "dataset": "chengdu",
+      "seed": 300,
+      "split_seed": 20260906,
+      "checkpoint": "runs/final_validation_v5_300m/chengdu_s300.json.pt",
+      "checkpoint_sha256": "e441e05d354746e640c1102ca5af9a25eda7482891839bc85530839ada8de15b",
+      "selected_validation": {
+        "MAE_m": 12.804660456147236,
+        "RMSE_m": 21.07104564540843,
+        "coordinates": 19310
+      },
+      "best_epoch": 25,
+      "test": {
+        "MAE_m": 13.238593657704476,
+        "RMSE_m": 23.346116720508963,
+        "coordinates": 19310
+      }
+    },
+    {
+      "dataset": "chengdu",
+      "seed": 301,
+      "split_seed": 20260906,
+      "checkpoint": "runs/final_validation_v5_300m/chengdu_s301.json.pt",
+      "checkpoint_sha256": "a03db9bac7c4e9ee13d70a01e2e23be700a4623812f35156259b6f8c8cef80f7",
+      "selected_validation": {
+        "MAE_m": 12.486252366811238,
+        "RMSE_m": 20.970704123787463,
+        "coordinates": 19310
+      },
+      "best_epoch": 31,
+      "test": {
+        "MAE_m": 12.887438218893626,
+        "RMSE_m": 22.63034283473653,
+        "coordinates": 19310
+      }
+    },
+    {
+      "dataset": "chengdu",
+      "seed": 302,
+      "split_seed": 20260906,
+      "checkpoint": "runs/final_validation_v5_300m/chengdu_s302.json.pt",
+      "checkpoint_sha256": "edf781625c6cc3ab7dd7664b672e9d2a5c3acf05849852b73bf51ae9ed3003e4",
+      "selected_validation": {
+        "MAE_m": 12.491455874648013,
+        "RMSE_m": 20.69735587849839,
+        "coordinates": 19310
+      },
+      "best_epoch": 24,
+      "test": {
+        "MAE_m": 12.93179002995938,
+        "RMSE_m": 22.716842907692428,
+        "coordinates": 19310
+      }
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "field": "test",
+  "rows": [
+    {
+      "dataset": "worldtrace",
+      "seed": 100,
+      "MAE_m": 11.98648759765625,
+      "RMSE_m": 22.176752467392514,
+      "coordinates": 20000
+    },
+    {
+      "dataset": "worldtrace",
+      "seed": 101,
+      "MAE_m": 12.41378603515625,
+      "RMSE_m": 22.466247878762488,
+      "coordinates": 20000
+    },
+    {
+      "dataset": "worldtrace",
+      "seed": 102,
+      "MAE_m": 12.21103173828125,
+      "RMSE_m": 22.486844209448332,
+      "coordinates": 20000
+    },
+    {
+      "dataset": "geolife",
+      "seed": 100,
+      "MAE_m": 18.855545751953127,
+      "RMSE_m": 46.3761193934982,
+      "coordinates": 20000
+    },
+    {
+      "dataset": "geolife",
+      "seed": 101,
+      "MAE_m": 18.72729951171875,
+      "RMSE_m": 45.859840819610355,
+      "coordinates": 20000
+    },
+    {
+      "dataset": "geolife",
+      "seed": 102,
+      "MAE_m": 18.144356689453126,
+      "RMSE_m": 44.93884935387198,
+      "coordinates": 20000
+    },
+    {
+      "dataset": "chengdu",
+      "seed": 300,
+      "MAE_m": 13.238593657704476,
+      "RMSE_m": 23.346116720508963,
+      "coordinates": 19310
+    },
+    {
+      "dataset": "chengdu",
+      "seed": 301,
+      "MAE_m": 12.887438218893626,
+      "RMSE_m": 22.63034283473653,
+      "coordinates": 19310
+    },
+    {
+      "dataset": "chengdu",
+      "seed": 302,
+      "MAE_m": 12.93179002995938,
+      "RMSE_m": 22.716842907692428,
+      "coordinates": 19310
+    }
+  ],
+  "summary": {
+    "worldtrace": {
+      "n": 3,
+      "seeds": [
+        100,
+        101,
+        102
+      ],
+      "MAE_mean": 12.20376845703125,
+      "MAE_std": 0.21374179542937466,
+      "RMSE_mean": 22.37661485186778,
+      "RMSE_std": 0.17339198872939238,
+      "target_MAE": 12.82,
+      "target_RMSE": 23.85,
+      "exact_mean_pass": true,
+      "within_2pct_each_mean": true
+    },
+    "chengdu": {
+      "n": 3,
+      "seeds": [
+        300,
+        301,
+        302
+      ],
+      "MAE_mean": 13.019273968852493,
+      "MAE_std": 0.19122660700017818,
+      "RMSE_mean": 22.897767487645975,
+      "RMSE_std": 0.39068317293168253,
+      "target_MAE": 15.07,
+      "target_RMSE": 27.29,
+      "exact_mean_pass": true,
+      "within_2pct_each_mean": true
+    },
+    "geolife": {
+      "n": 3,
+      "seeds": [
+        100,
+        101,
+        102
+      ],
+      "MAE_mean": 18.575733984375002,
+      "MAE_std": 0.37904690008513364,
+      "RMSE_mean": 45.72493652232685,
+      "RMSE_std": 0.7280698241040878,
+      "target_MAE": 27.17,
+      "target_RMSE": 105.13,
+      "exact_mean_pass": true,
+      "within_2pct_each_mean": true
+    }
+  },
+  "overall": {
+    "all_three_seeds_present": true,
+    "all_six_exact": true,
+    "all_six_within_2pct": true,
+    "mean_relative_change": -0.21470820093901444,
+    "acceptance_pass": true
+  }
+}

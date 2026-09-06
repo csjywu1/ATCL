@@ -2,6 +2,7 @@ cff-version: 1.2.0
 message: "If you use this code, please cite the ACTP paper."
 title: "ACTP: Adaptive Contrastive Learning for Trajectory Prediction"
 type: software
-version: 1.0.0
-date-released: 2026-09-02
+version: 2.0.0
+date-released: 2026-09-06
 license: MIT
+repository-code: "https://github.com/csjywu1/ATCL"

@@ -1,11 +1,21 @@
 # Data
 
-- `raw/Geolife_Trajectories_1.3.zip`: original GeoLife archive. Check the provider's redistribution terms before publishing it.
-- `processed/geolife_20k.pkl`: 20,000 contiguous trajectories used by the released experiment.
-- `prepare.py`: converts the archive to the processed pickle and removes discontinuities larger than 2 km.
+ACTP supports WorldTrace, Chengdu, and GeoLife. Dataset files are not committed.
 
-Rebuild the processed file from the project root:
+Expected processed paths are:
+
+- `data/processed/worldtrace_3s_20k.pkl`
+- `data/processed/chengdu_coordinate_20000.pkl`
+- `data/processed/geolife_20k.pkl`
+
+Create a portable pickle from the project root:
 
 ```bash
-python -m data.prepare --input data/raw/Geolife_Trajectories_1.3.zip --output data/processed/geolife_20k.pkl
+python -m data.prepare \
+  --dataset geolife \
+  --input data/raw/Geolife_Trajectories_1.3.zip \
+  --output data/processed/geolife_20k.pkl \
+  --max-step-m 300
 ```
+
+The released configurations apply a fixed trajectory-level split with seed `20260906`. Chengdu and GeoLife use a 300 m consecutive-displacement quality-control threshold in the reported final runs. Check each provider's terms before downloading, processing, or sharing data.

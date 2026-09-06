@@ -1,0 +1,9 @@
+{
+  "dataset": "chengdu", "method": "actp", "path": "data/processed/chengdu_coordinate_20000.pkl",
+  "output": "results/runs/chengdu_seed300.json", "limit": 20000, "chengdu_max_step_m": 300,
+  "absolute_context": true, "fusion_mode": "hierarchical", "hidden": 512, "batch_size": 128,
+  "epochs": 45, "lr": 0.0007, "split_seed": 20260906, "test_policy": "sealed",
+  "max_history": 32, "pred_loss": "smoothl1", "smoothl1_beta": 50, "mse_mix": 0.01,
+  "select": "rmse", "lambda_occ": 0.01, "lambda_hyp": 0.0001, "lambda_ord": 0.005,
+  "lambda_curvature": 0.0001, "aux_warmup": 35, "negative_mode": "real", "seed": 300
+}

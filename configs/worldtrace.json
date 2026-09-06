@@ -1,0 +1,8 @@
+{
+  "dataset": "worldtrace", "method": "actp", "path": "data/processed/worldtrace_3s_20k.pkl",
+  "output": "results/runs/worldtrace_seed100.json", "limit": 20000, "worldtrace_step": 1,
+  "hidden": 256, "batch_size": 256, "epochs": 45, "lr": 0.001, "split_seed": 20260906,
+  "test_policy": "sealed", "max_history": 32, "pred_loss": "smoothl1", "smoothl1_beta": 50,
+  "select": "rmse", "lambda_occ": 0.005, "lambda_hyp": 0.0001, "lambda_ord": 0.002,
+  "lambda_curvature": 0.0001, "aux_warmup": 35, "negative_mode": "real", "seed": 100
+}

@@ -1,5 +1,5 @@
 """ACTP model package."""
 
-from .actp import ACTP
+from .actp import ACTPPredictor, GRUPredictor, ScaleEncoder
 
-__all__ = ["ACTP"]
+__all__ = ["ACTPPredictor", "GRUPredictor", "ScaleEncoder"]
