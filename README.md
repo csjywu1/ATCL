@@ -1,4 +1,4 @@
-# ACTP: Adaptive Contrastive Learning for Trajectory Prediction
+# ACTP: Adaptive Cross-Scale Learning for Trajectory Prediction
 
 PyTorch implementation and reproducibility package for the audited ACTP trajectory-prediction experiments. The code predicts the next five recorded GPS locations from an observed trajectory prefix and implements coarse-to-fine scale encoding, learnable Poincare geometry, hyperbolic cross-scale contrast, radial ordering, and configurable decoding.
 
